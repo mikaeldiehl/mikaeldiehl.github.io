@@ -117,13 +117,16 @@ h2 {
 /* Header 
 ----------------------------------------------*/
 .header {
-	position: fixed;
-	width: 100%;
-	background: transpreant;
-	z-index: 50;
-	border-radius: 0;
-	top: 0px;
+    position: fixed;
+    width: 100%;
+    background: #000; /* Cor de fundo escura */
+    z-index: 999;
+    top: 0;
+    left: 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
+
 .navbar-inverse .navbar-toggle {
 	border-color: #FF7A00;
 	background-color: #FF7A00;
@@ -740,8 +743,11 @@ hr {
 	border-color: #ddd;
 }
 body {
-	margin: 0;
-	font-family: Arial, sans-serif;
+    padding-top: 70px; /* Ajuste este valor conforme a altura da sua navbar */
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: #fff;
 }
 #navigation {
 	position: fixed;
