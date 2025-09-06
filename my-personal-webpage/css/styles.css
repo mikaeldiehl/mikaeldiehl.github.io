@@ -124,7 +124,7 @@ h2 {
     top: 0;
     left: 0;
     padding: 0;
-    border-bottom: 1px solid #000; /* Adiciona a linha de 1px da mesma cor */
+    border-bottom: 2px solid #000; /* Adiciona a linha de 1px da mesma cor */
 }
 
 .banner-container {
