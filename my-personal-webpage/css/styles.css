@@ -146,7 +146,7 @@ body {
 	background: transparent !important;
 }
 .navbar-inverse .navbar-toggle .icon-bar {
-/*background-color: #FF7A00;*/;
+/*background-color: #FF7A00;*/
 }
 .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
 	background: #FF7A00;
@@ -556,6 +556,23 @@ min-height:200px;
 }
 .progress-bar {
 	background-color: #FF7A00;
+}
+
+.diploma-heading {
+  font-size: 38px;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  animation: glowing 2s ease-in-out infinite;
+}
+
+@keyframes glowing {
+  0% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+  50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+  100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
 }
 /* Services
     -------------------------------------------------*/
