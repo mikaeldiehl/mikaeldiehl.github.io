@@ -59,10 +59,20 @@
 <section id="home">
   <div class="banner-container"> <img src="images/banner-bg.jpg" alt="banner" />
     <div class="container banner-content">
-      <div class="heroText">
-        <h2><span></span><br>
-          Mikael Diehl</h2>
-        <span class="caption">Dev. Full-stack focado em IA/ML</span> </div>
+      <style>
+      @media (max-width: 480px) {
+        .mobile-caption {
+          font-size: 18px !important; /* Changed from 9px to 18px (two-thirds of 28px) */
+          padding: 5px 15px !important;
+          letter-spacing: 1px !important;
+        }
+      }
+      </style>
+
+    <div class="heroText">
+      <h2><span></span><br>
+        Mikael Diehl</h2>
+      <span class="caption mobile-caption">Dev. Full-stack focado em IA/ML</span>
     </div>
   </div>
 </section>
@@ -120,6 +130,22 @@
     <div class="heading "> 
       <!-- Heading -->
     </div>
+    <style>
+    @media (max-width: 767px) {
+      .skillContainer .skillBox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      
+      .skillContainer .chart-text {
+        margin-top: 15px;
+        width: 100%;
+      }
+    }
+    </style>
     <div class="row skillContainer">
       <div class="col-md-4 skillBox">
         <div id="diagram-id-1" class="diagram" data-percent="85.6%"></div>
@@ -233,34 +259,61 @@
     Esse ano, desenvolvi e gerenciei sistemas de gestão com controle de acesso por níveis de privilégio, permitindo que usuários visualizem informações e administradores realizem operações completas como criação, edição e exclusão de dados diretamente pela interface. Os sistemas foram transformados em aplicativos com dashboards interativos e gráficos atualizados em tempo real, utilizando tecnologias como HTML5, CSS3, JavaScript, Bootstrap, Express.js, Node.js, Electron.js e banco de dados Firebird.<br>
     Atualmente, crio páginas Landing-Page e automações em Python para demandas online. Espero voltar ao ambiente corporativo brevemente para novos e instigantes processos. Acredito que para realizar esse sonho eu já tenha dado o start da coragem, da motivação e ultrapassado desafios que podem mudar não só a minha vida como de outras pessoas.</p>
 </div>
-<div class="row experience-details">
-  <div class="col-md-6">
-    <div class="row">
-      <div class="col-md-5">
-        <div class="icon-block"><i class="fa fa-cogs"></i></div>
-        <div class="pull-left">
-          <h5>Téc. em Informática </h5>
-          <h4>Hardware</h4>
-          <span>2010 - ATUAL</span> </div>
+    <style>
+    @media (max-width: 767px) {
+      .experience-details .col-md-5 {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      .experience-details .icon-block {
+        margin-right: 15px;
+      }
+      .experience-details .pull-left {
+        margin-left: 0;
+      }
+      .experience-details .col-md-7 {
+        padding-left: 45px;
+        clear: both;
+      }
+    }
+  </style>
+
+  <div class="row experience-details">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="icon-block"><i class="fa fa-cogs"></i></div>
+          <div class="pull-left">
+            <h5>Téc. em Informática </h5>
+            <h4>Hardware</h4>
+            <span>2010 - ATUAL</span>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <i>Montagem e configuração de computadores e notebooks</i>
+        </div>
       </div>
-      <div class="col-md-7"> <i>Montagem e configuração de computadores e notebooks</i> </div>
     </div>
   </div>
-</div>
-<div class="row experience-details">
-  <div class="col-md-6">
-    <div class="row">
-      <div class="col-md-5">
-        <div class="icon-block"><i class="fa fa-desktop"></i></div>
-        <div class="pull-left">
-          <h5>Software Developer</h5>
-          <h4>Programação</h4>
-          <span>2022 - ATUAL</span> </div>
+
+  <div class="row experience-details">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="icon-block"><i class="fa fa-desktop"></i></div>
+          <div class="pull-left">
+            <h5>Software Developer</h5>
+            <h4>Programação</h4>
+            <span>2022 - ATUAL</span>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <i>Desenvolvimento de sites e por certo período como Full-Stack na Servisoft Info.</i>
+        </div>
       </div>
-      <div class="col-md-7"> <i>Desenvolvimento de sites e por certo período como Full-Stack na Servisoft Info.</i> </div>
     </div>
   </div>
-</div>
 </section>
 
 <section id="portfolio" class="page-section section appear clearfix secPad">
@@ -508,12 +561,12 @@
         <h2>Vamos manter contato!</h2>
         <p>Agradeço por visitar a minha página de perfil. Sinta-se à vontade para entrar em contato por meio dos hyperlinks de rodapé da página ou do meu email de trabalho: <b>mikaeldiehl.ads@gmail.com </b></p>
         
-        <!-- Modified CV buttons to open in new tab -->
-        <div class="cv-buttons" style="margin: 30px 0;">
-          <a href="source/CurriculumMikael.pdf" class="btn btn-theme btn-lg" style="margin: 0 10px;" target="_blank">
+        <!-- Modified CV buttons alignment -->
+        <div class="cv-buttons" style="margin: 30px 0; text-align: left;">
+          <a href="source/CurriculumMikael.pdf" class="btn btn-theme btn-lg" style="margin: 5px 10px 5px 0;" target="_blank">
             <i class="fa fa-file-pdf-o"></i> Visualizar Currículo em Português
           </a>
-          <a href="source/CurriculumMikael-US.pdf" class="btn btn-theme btn-lg" style="margin: 0 10px;" target="_blank">
+          <a href="source/CurriculumMikael-US.pdf" class="btn btn-theme btn-lg" style="margin: 5px 10px 5px 0;" target="_blank">
             <i class="fa fa-file-pdf-o"></i> View CV in English
           </a>
         </div>
@@ -523,7 +576,6 @@
       </div>
     </div>
   </div>
-  <!--/.container-->
 </section>
 
 
