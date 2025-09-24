@@ -296,6 +296,70 @@
         </div>
       </div>
     </div>
+    <style>
+      .progress {
+        position: relative;
+      }
+
+      .progress-bar {
+        width: 0;
+        transition: width 1.5s ease-out;
+      }
+
+      .progress .percentage {
+        position: absolute;
+        right: 10px;
+        color: white;
+        font-weight: bold;
+      }
+    </style>
+    <!-- Add this JavaScript before the closing body tag -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        function isInViewport(element) {
+          const rect = element.getBoundingClientRect();
+          return (
+            rect.top >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+          );
+        }
+
+        function animateProgressBar(progressBar) {
+          if (!progressBar.classList.contains('animated')) {
+            const targetValue = parseInt(progressBar.getAttribute('aria-valuenow'));
+            const percentageSpan = progressBar.querySelector('.percentage');
+            let currentValue = 0;
+
+            progressBar.classList.add('animated');
+            
+            const interval = setInterval(() => {
+              if (currentValue >= targetValue) {
+                clearInterval(interval);
+                return;
+              }
+              
+              currentValue += 1;
+              progressBar.style.width = currentValue + '%';
+              percentageSpan.textContent = currentValue + '%';
+            }, 15);
+          }
+        }
+
+        function checkProgressBars() {
+          const progressBars = document.querySelectorAll('.progress-bar');
+          progressBars.forEach(bar => {
+            if (isInViewport(bar)) {
+              animateProgressBar(bar);
+            }
+          });
+        }
+
+        // Initial check and scroll listener
+        checkProgressBars();
+        window.addEventListener('scroll', checkProgressBars);
+      });
+    </script>
+
     <div class="row">
       <div class="col-sm-6">
         <h2>Habilidades de Programação</h2>
