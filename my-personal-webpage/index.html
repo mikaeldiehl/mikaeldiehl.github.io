@@ -29,6 +29,133 @@
 <link href="css/font-awesome.min.css" rel="stylesheet">
 </head>
 
+<!-- Add this in the head section -->
+<style>
+/* Animation for diagrams */
+.diagram {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.diagram.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animation for progress bars */
+.progress-bar {
+  width: 0;
+  transition: width 1.5s ease-out;
+}
+</style>
+
+<!-- Add this just before closing body tag -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+      const rect = element.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+      
+      // Check if element is at least 20% visible
+      const verticalVisible = rect.top < windowHeight * 0.8 && rect.bottom > 0;
+      const horizontalVisible = rect.left < windowWidth && rect.right > 0;
+      
+      return verticalVisible && horizontalVisible;
+    }
+
+    // Function to animate number counting
+    function animateValue(element, start, end, duration) {
+      if (element.dataset.animated === 'true') return; // Prevent re-animation
+      
+      element.dataset.animated = 'true';
+      let startTimestamp = null;
+      
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        
+        // Easing function for smooth animation
+        const easeOutQuad = progress * (2 - progress);
+        const currentValue = Math.floor(easeOutQuad * (end - start) + start);
+        
+        element.textContent = currentValue + '%';
+        
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          element.textContent = end + '%'; // Ensure we end at exact value
+        }
+      };
+      
+      window.requestAnimationFrame(step);
+    }
+
+    // Handle progress bars animation
+    const progressBars = document.querySelectorAll('.progress-bar');
+    const percentageValues = document.querySelectorAll('.percentage-value');
+    const animatedElements = new Set();
+    
+    function animateProgressBars() {
+      progressBars.forEach((bar, index) => {
+        const parent = bar.closest('.diagram');
+        if (parent && isInViewport(parent) && !animatedElements.has(bar)) {
+          animatedElements.add(bar);
+          
+          // Animate the progress bar width
+          const width = bar.getAttribute('aria-valuenow') + '%';
+          setTimeout(() => {
+            bar.style.width = width;
+          }, index * 100); // Stagger animation for each bar
+          
+          // Animate the percentage counter
+          if (percentageValues[index]) {
+            const targetValue = parseInt(percentageValues[index].dataset.target);
+            setTimeout(() => {
+              animateValue(percentageValues[index], 0, targetValue, 1500);
+            }, index * 100);
+          }
+        }
+      });
+    }
+
+    // Handle diagram animations
+    const diagrams = document.querySelectorAll('.diagram');
+    
+    function animateDiagrams() {
+      diagrams.forEach(diagram => {
+        if (isInViewport(diagram) && !diagram.classList.contains('animated')) {
+          diagram.classList.add('animated');
+          // Trigger progress bar animation when diagram becomes visible
+          animateProgressBars();
+        }
+      });
+    }
+
+    // Initial check and scroll listener with throttling
+    let ticking = false;
+    function handleScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          animateDiagrams();
+          animateProgressBars();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    // Initial animations
+    animateDiagrams();
+    animateProgressBars();
+    
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  });
+</script>
+
 <body>
 <header class="header">
   <div class="container">
