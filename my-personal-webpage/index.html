@@ -203,14 +203,53 @@
     </div>
   </div>
 </section>
+<!-- Add this to your head section or CSS file -->
+<style>
+  .slide-in {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 1s ease-out;
+  }
+
+  .slide-in.active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (max-width: 768px) {
+    .slide-in {
+      transform: translateX(-50%);
+    }
+  }
+</style>
+
+<!-- Modify your introText section -->
 <section id="introText">
   <div class="container">
-    <div>
+    <div class="slide-in">
       <h1>Início de um novo tempo. Graduado do curso universitário de Análise e Desenvolvimento de Sistemas e cursando Pós-graduação em Inteligência Artificial e Machine Learning, estou à disposição para as oportunidades do mercado de trabalho.</h1>
       <p><b>Tenho conhecimentos sólidos em Python, LangChain, OpenAI, Hugging Face, ChatGroq, Torch, NumPy, Anaconda, JavaScript, Node.js, Express.js, Postman, XAMPP, Electron.js, MySQL, Firebird, CSS3, HTML5, JSON, Linux, Git. Meu objetivo é crescer junto de uma empresa.</b></p>
     </div>
   </div>
 </section>
+
+<!-- Add this JavaScript before the closing body tag -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    const slideElements = document.querySelectorAll('.slide-in');
+    slideElements.forEach(element => observer.observe(element));
+  });
+</script>
 <!--About-->
 <section id="aboutUs">
   <div class="container">
@@ -743,11 +782,31 @@
   </div> <!-- Fechamento do div da classe container -->
 </section> <!-- Fechamento da section com id portfolio -->
 
-<!--Contact -->
+<!-- Add this to your existing CSS -->
+<style>
+  .contact-slide-in {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 1s ease-out;
+  }
+
+  .contact-slide-in.active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (max-width: 768px) {
+    .contact-slide-in {
+      transform: translateX(-50%);
+    }
+  }
+</style>
+
+<!-- Modify your contactUs section -->
 <section id="contactUs" class="page-section secPad">
   <div class="container">
     <div class="row">
-      <div class="heading">
+      <div class="heading contact-slide-in">
         <!-- Heading -->
         <h2>Vamos manter contato!</h2>
         <p>Agradeço por visitar a minha página de perfil. Sinta-se à vontade para entrar em contato por meio dos hyperlinks de rodapé da página ou do meu email de trabalho: <b>mikaeldiehl.ads@gmail.com </b></p>
@@ -768,6 +827,24 @@
     </div>
   </div>
 </section>
+
+<!-- Add this JavaScript before the closing body tag -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    const contactSlideElements = document.querySelectorAll('.contact-slide-in');
+    contactSlideElements.forEach(element => observer.observe(element));
+  });
+</script>
 
 
 <!--/.page-section-->
