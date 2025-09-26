@@ -151,3 +151,81 @@ var defaults = {
 	};
 
 })(jQuery);
+
+(function($) {
+  $.fn.diagram = function(options) {
+    var defaults = {
+      size: "100",
+      borderWidth: "10",
+      bgFill: "#e2e2e2",
+      frFill: "#D70040",
+      textSize: 50,
+      textColor: "#585858"
+    };
+    
+    var options = $.extend(defaults, options);
+    
+    return this.each(function() {
+      var $this = $(this);
+      var o = options;
+      var dataPercent = $this.data("percent");
+      var elem = $this;
+      
+      // Create the canvas
+      var canvas = document.createElement("canvas");
+      canvas.width = o.size;
+      canvas.height = o.size;
+      var context = canvas.getContext("2d");
+      elem.append(canvas);
+      
+      // Create text element
+      var textContent = $("<span></span>").html("0%").css({
+        "font-size": o.textSize + "px",
+        "color": o.textColor
+      });
+      elem.append(textContent);
+      
+      // Animation function
+      function animate(current) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Background circle
+        context.beginPath();
+        context.arc(o.size/2, o.size/2, (o.size-o.borderWidth)/2, 0, 2 * Math.PI);
+        context.lineWidth = o.borderWidth;
+        context.strokeStyle = o.bgFill;
+        context.stroke();
+        
+        // Foreground circle
+        var angle = 2 * Math.PI * (current/100);
+        context.beginPath();
+        context.arc(o.size/2, o.size/2, (o.size-o.borderWidth)/2, -Math.PI/2, angle - Math.PI/2);
+        context.lineWidth = o.borderWidth;
+        context.strokeStyle = o.frFill;
+        context.stroke();
+        
+        // Update text
+        textContent.html(Math.round(current) + "%");
+        
+        // Continue animation
+        if (current < dataPercent) {
+          requestAnimationFrame(function() {
+            animate(current + 0.5);
+          });
+        }
+      }
+      
+      // Start animation when element is in viewport
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !elem.data('animated')) {
+            elem.data('animated', true);
+            animate(0);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      observer.observe(elem[0]);
+    });
+  };
+})(jQuery);
