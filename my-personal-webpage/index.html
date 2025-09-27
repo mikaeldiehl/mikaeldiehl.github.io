@@ -14,62 +14,76 @@
 
 
 <style>
-  @keyframes titleAnimation {
-    0% { content: "M"; }
-    5% { content: "Mi"; }
-    10% { content: "Mik"; }
-    15% { content: "Mika"; }
-    20% { content: "Mikae"; }
-    25% { content: "Mikael"; }
-    30% { content: "Mikael "; }
-    35% { content: "Mikael D"; }
-    40% { content: "Mikael Di"; }
-    45% { content: "Mikael Die"; }
-    50% { content: "Mikael Dieh"; }
-    55% { content: "Mikael Diehl"; }
-    60% { content: "Mikael Diehl -"; }
-    65% { content: "Mikael Diehl - D"; }
-    70% { content: "Mikael Diehl - De"; }
-    75% { content: "Mikael Diehl - Dev"; }
-    80% { content: "Mikael Diehl - Dev."; }
-    85% { content: "Mikael Diehl - Dev. "; }
-    90% { content: "Mikael Diehl - Dev. F"; }
-    95% { content: "Mikael Diehl - Dev. Fu"; }
-    100% { content: "Mikael Diehl - Dev. Full-stack"; }
+  @media (min-width: 769px) {
+    
+    @keyframes titleAnimation {
+      0% { content: "M"; }
+      5% { content: "Mi"; }
+      10% { content: "Mik"; }
+      15% { content: "Mika"; }
+      20% { content: "Mikae"; }
+      25% { content: "Mikael"; }
+      30% { content: "Mikael "; }
+      35% { content: "Mikael D"; }
+      40% { content: "Mikael Di"; }
+      45% { content: "Mikael Die"; }
+      50% { content: "Mikael Dieh"; }
+      55% { content: "Mikael Diehl"; }
+      60% { content: "Mikael Diehl -"; }
+      65% { content: "Mikael Diehl - D"; }
+      70% { content: "Mikael Diehl - De"; }
+      75% { content: "Mikael Diehl - Dev"; }
+      80% { content: "Mikael Diehl - Dev."; }
+      85% { content: "Mikael Diehl - Dev. "; }
+      90% { content: "Mikael Diehl - Dev. F"; }
+      95% { content: "Mikael Diehl - Dev. Fu"; }
+      100% { content: "Mikael Diehl - Dev. Full-stack"; }
+    }
+
+    title::before {
+      content: "Mikael Diehl - Dev. Full-stack";
+      animation: titleAnimation 4s steps(1) infinite;
+    }
+
+    title {
+      color: transparent;
+      position: relative;
+    }
   }
 
-  title::before {
-    content: "Mikael Diehl - Dev. Full-stack";
-    animation: titleAnimation 4s steps(1) infinite;
-  }
-
-  title {
-    color: transparent;
-    position: relative;
+  /* Versão mobile terá título estático */
+  @media (max-width: 768px) {
+    title {
+      color: inherit;
+    }
   }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    function updateTitle() {
-      const titles = [
-        "Mikael Diehl - Dev. Full-stack",
-        "Mikael Diehl - IA/ML Developer",
-        "Mikael Diehl - Portfolio"
-      ];
-      let currentIndex = 0;
-      
-      setInterval(() => {
-        document.title = titles[currentIndex];
-        currentIndex = (currentIndex + 1) % titles.length;
-      }, 4000);
-    }
+    const isMobile = window.innerWidth <= 768;
     
-    updateTitle();
+    if (!isMobile) {
+      function updateTitle() {
+        const titles = [
+          "Mikael - Dev. Full-stack",
+          "Mikael - IA/ML Developer",
+          "Mikael - Portfolio"
+        ];
+        let currentIndex = 0;
+        
+        setInterval(() => {
+          document.title = titles[currentIndex];
+          currentIndex = (currentIndex + 1) % titles.length;
+        }, 4000);
+      }
+      
+      updateTitle();
+    }
   });
 </script>
 
-<title>Mikael Diehl - Dev. Full-stack</title>
+<title>Mikael - Dev. Full-stack</title>
 
 <meta name="description" content="">
 <meta name="author" content="Mikael">
