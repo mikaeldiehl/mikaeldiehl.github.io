@@ -11,7 +11,66 @@
 <!--[if lt IE 9]> 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <![endif]-->
-<title>Minha página pessoal</title>
+
+
+<style>
+  @keyframes titleAnimation {
+    0% { content: "M"; }
+    5% { content: "Mi"; }
+    10% { content: "Mik"; }
+    15% { content: "Mika"; }
+    20% { content: "Mikae"; }
+    25% { content: "Mikael"; }
+    30% { content: "Mikael "; }
+    35% { content: "Mikael D"; }
+    40% { content: "Mikael Di"; }
+    45% { content: "Mikael Die"; }
+    50% { content: "Mikael Dieh"; }
+    55% { content: "Mikael Diehl"; }
+    60% { content: "Mikael Diehl -"; }
+    65% { content: "Mikael Diehl - D"; }
+    70% { content: "Mikael Diehl - De"; }
+    75% { content: "Mikael Diehl - Dev"; }
+    80% { content: "Mikael Diehl - Dev."; }
+    85% { content: "Mikael Diehl - Dev. "; }
+    90% { content: "Mikael Diehl - Dev. F"; }
+    95% { content: "Mikael Diehl - Dev. Fu"; }
+    100% { content: "Mikael Diehl - Dev. Full-stack"; }
+  }
+
+  title::before {
+    content: "Mikael Diehl - Dev. Full-stack";
+    animation: titleAnimation 4s steps(1) infinite;
+  }
+
+  title {
+    color: transparent;
+    position: relative;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function updateTitle() {
+      const titles = [
+        "Mikael Diehl - Dev. Full-stack",
+        "Mikael Diehl - IA/ML Developer",
+        "Mikael Diehl - Portfolio"
+      ];
+      let currentIndex = 0;
+      
+      setInterval(() => {
+        document.title = titles[currentIndex];
+        currentIndex = (currentIndex + 1) % titles.length;
+      }, 4000);
+    }
+    
+    updateTitle();
+  });
+</script>
+
+<title>Mikael Diehl - Dev. Full-stack</title>
+
 <meta name="description" content="">
 <meta name="author" content="Mikael">
 <!--[if lt IE 9]>
@@ -29,7 +88,7 @@
 <link href="css/font-awesome.min.css" rel="stylesheet">
 </head>
 
-<!-- Add this in the head section -->
+
 <style>
 /* Animation for diagrams */
 .diagram {
@@ -50,7 +109,6 @@
 }
 </style>
 
-<!-- Add this just before closing body tag -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
     // Function to check if element is in viewport
@@ -175,13 +233,13 @@
           <li><a href="https://github.com/mikaeldiehl" class="scroll-link">Projetos</a></li>
         </ul>
       </div>
-      <!--/.navbar-collapse--> 
+
     </nav>
-    <!--/.navbar--> 
+    
   </div>
-  <!--/.container--> 
+
 </header>
-<!--/.header-->
+
 <div id="#top"></div>
 <section id="home">
   <div class="banner-container"> <img src="images/banner-bg.jpg" alt="banner" />
@@ -189,7 +247,7 @@
       <style>
       @media (max-width: 480px) {
         .mobile-caption {
-          font-size: 18px !important; /* Changed from 9px to 18px (two-thirds of 28px) */
+          font-size: 18px !important;
           padding: 5px 15px !important;
           letter-spacing: 1px !important;
         }
@@ -203,7 +261,7 @@
     </div>
   </div>
 </section>
-<!-- Add this to your head section or CSS file -->
+
 <style>
   .slide-in {
     opacity: 0;
@@ -223,7 +281,7 @@
   }
 </style>
 
-<!-- Modify your introText section -->
+
 <section id="introText">
   <div class="container">
     <div class="slide-in">
@@ -233,7 +291,7 @@
   </div>
 </section>
 
-<!-- Add this JavaScript before the closing body tag -->
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const observer = new IntersectionObserver((entries) => {
@@ -325,13 +383,13 @@
         transform: translateY(0);
       }
 
-      /* Add new class for animation control */
+
       .diagram[data-animated="false"] {
         --percent: 0%;
       }
     </style>
 
-<!-- Modify your JavaScript -->
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     function isInViewport(element) {
@@ -374,7 +432,7 @@
       });
     }
 
-    // Initial check and scroll listener
+
     checkDiagrams();
     window.addEventListener('scroll', checkDiagrams);
   });
@@ -425,7 +483,7 @@
         font-weight: bold;
       }
     </style>
-    <!-- Add this JavaScript before the closing body tag -->
+
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         function isInViewport(element) {
@@ -466,7 +524,7 @@
           });
         }
 
-        // Initial check and scroll listener
+
         checkProgressBars();
         window.addEventListener('scroll', checkProgressBars);
       });
@@ -630,7 +688,7 @@
 <style>
   @media (max-width: 480px) {
     .diploma-heading {
-      font-size: 25px !important; /* Reduced by approximately 33% from 38px */
+      font-size: 25px !important;
       line-height: 1.3;
       margin-bottom: 15px;
     }
@@ -638,8 +696,7 @@
 </style>
 
 <section id="portfolio" class="page-section section appear clearfix secPad">
-  <div class="container">
-    <!-- Add this new div for the diploma image -->
+  <div class="container">    
     <div class="row">
       <div class="col-md-12 text-center">
         <h2 class="diploma-heading" style="color: #0066cc;">Cursando Pós-Graduação em Inteligência Artificial e Machine Learning</h2>
@@ -866,14 +923,13 @@
               </div>
             </div>
           </article>
-          </div> <!-- Fechamento do div da classe isotopeWrapper -->
-        </div> <!-- Fechamento do div da classe row -->
-      </div> <!-- Fechamento do div da classe col-md-12 -->
-    </div> <!-- Fechamento do div da classe row -->
-  </div> <!-- Fechamento do div da classe container -->
-</section> <!-- Fechamento da section com id portfolio -->
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+</section> 
 
-<!-- Add this to your existing CSS -->
 <style>
   .contact-slide-in {
     opacity: 0;
@@ -893,16 +949,16 @@
   }
 </style>
 
-<!-- Modify your contactUs section -->
+
 <section id="contactUs" class="page-section secPad">
   <div class="container">
     <div class="row">
       <div class="heading contact-slide-in">
-        <!-- Heading -->
+
         <h2>Vamos manter contato!</h2>
         <p>Agradeço por visitar a minha página de perfil. Sinta-se à vontade para entrar em contato por meio dos hyperlinks de rodapé da página ou do meu email de trabalho: <b>mikaeldiehl.ads@gmail.com </b></p>
         
-        <!-- Modified CV buttons alignment -->
+
         <div class="cv-buttons" style="margin: 30px 0; text-align: left;">
           <a href="source/CurriculumMikael.pdf" class="btn btn-theme btn-lg" style="margin: 5px 10px 5px 0;" target="_blank">
             <i class="fa fa-file-pdf-o"></i> Visualizar Currículo em Português
@@ -919,7 +975,7 @@
   </div>
 </section>
 
-<!-- Add this JavaScript before the closing body tag -->
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const observer = new IntersectionObserver((entries) => {
@@ -938,7 +994,7 @@
 </script>
 
 
-<!--/.page-section-->
+
 <footer class="copyright">
   <div class="container">
     <div class="row">
@@ -946,7 +1002,7 @@
         <div class="social pull-left"> <a href="https://www.linkedin.com/in/mikael-moraes-diehl-380a4528a/"><i class="fa fa-linkedin"></i></a> <a href="https://www.instagram.com/mikael.diehl"><i class="fa fa-instagram"></i></a> <a href="https://www.facebook.com/mikael.moraesdiehl"><i class="fa fa-facebook"></i></a><a href="https://github.com/mikaeldiehl"><i class="fa fa-github"></i></a> </div>
       </div>
     </div>
-    <!-- / .row --> 
+
   </div>
 </footer>
 <a href="#top" class="topHome"><i class="fa fa-chevron-up fa-2x"></i></a> 
@@ -967,4 +1023,4 @@
 </body>
 </html>
 
-<!-- Outline it's now forever-->
+

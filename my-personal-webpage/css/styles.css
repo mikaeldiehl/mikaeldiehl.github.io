@@ -1,7 +1,4 @@
-/*
-Theme Name: ME – Resume and Personal Portfolio Responsive Template
-Author URI: http://webthemez.com/ 
-*/
+
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
 * {
 	margin: 0;
@@ -124,7 +121,7 @@ h2 {
     top: 0;
     left: 0;
     padding: 0;
-    border-bottom: 2px solid #000; /* Adiciona a linha de 1px da mesma cor */
+    border-bottom: 2px solid #000;
 }
 
 .banner-container {
@@ -785,7 +782,7 @@ hr {
 	border-color: #ddd;
 }
 body {
-    padding-top: 70px; /* Ajuste este valor conforme a altura da sua navbar */
+    padding-top: 70px;
     font-size: 14px;
     font-family: 'Open Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -1086,9 +1083,9 @@ nav#filter li {
 .navbar-inverse .navbar-nav > li > a:hover, 
 .navbar-inverse .navbar-nav > li > a:focus {
     color: #FFFFFF;
-    text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.8); /* Add a glowing effect */
-    transform: scale(1.1); /* Slightly enlarge the text */
-    transition: all 0.3s ease-in-out; /* Smooth transition */
+    text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
 }
 
 .caption {
@@ -1112,4 +1109,3 @@ nav#filter li {
     animation: glow 2s infinite alternate;
 }
 
-/* Outline is now or never.
