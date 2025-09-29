@@ -1,0 +1,1049 @@
+<!doctype html>
+<!--[if IE 7 ]>    <html lang="en-gb" class="isie ie7 oldie no-js"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en-gb" class="isie ie8 oldie no-js"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en-gb" class="isie ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en-gb" class="no-js">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!--[if lt IE 9]> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <![endif]-->
+
+
+<style>
+  @media (min-width: 769px) {
+    
+    @keyframes titleAnimation {
+      0% { content: "M"; }
+      5% { content: "Mi"; }
+      10% { content: "Mik"; }
+      15% { content: "Mika"; }
+      20% { content: "Mikae"; }
+      25% { content: "Mikael"; }
+      30% { content: "Mikael "; }
+      35% { content: "Mikael D"; }
+      40% { content: "Mikael Di"; }
+      45% { content: "Mikael Die"; }
+      50% { content: "Mikael Dieh"; }
+      55% { content: "Mikael Diehl"; }
+      60% { content: "Mikael Diehl -"; }
+      65% { content: "Mikael Diehl - D"; }
+      70% { content: "Mikael Diehl - De"; }
+      75% { content: "Mikael Diehl - Dev"; }
+      80% { content: "Mikael Diehl - Dev."; }
+      85% { content: "Mikael Diehl - Dev. "; }
+      90% { content: "Mikael Diehl - Dev. F"; }
+      95% { content: "Mikael Diehl - Dev. Fu"; }
+      100% { content: "Mikael Diehl - Dev. Full-stack"; }
+    }
+
+    title::before {
+      content: "Mikael Diehl - Dev. Full-stack";
+      animation: titleAnimation 4s steps(1) infinite;
+    }
+
+    title {
+      color: transparent;
+      position: relative;
+    }
+  }
+
+  /* Versão mobile terá título estático */
+  @media (max-width: 768px) {
+    title {
+      color: inherit;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const isMobile = window.innerWidth <= 768;
+    
+    if (!isMobile) {
+      function updateTitle() {
+        const titles = [
+          "Mikael - Dev. Full-stack",
+          "Mikael - IA/ML Developer",
+          "Mikael - Portfolio"
+        ];
+        let currentIndex = 0;
+        
+        setInterval(() => {
+          document.title = titles[currentIndex];
+          currentIndex = (currentIndex + 1) % titles.length;
+        }, 4000);
+      }
+      
+      updateTitle();
+    }
+  });
+</script>
+
+<title>Mikael - Dev. Full-stack</title>
+
+<meta name="description" content="">
+<meta name="author" content="Mikael">
+<!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<!--[if lte IE 8]>
+		<script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
+	<![endif]-->
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/isotope.css" media="screen" />
+<link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+<link rel="stylesheet" type="text/css" href="css/da-slider.css" />
+<link rel="stylesheet" href="css/styles.css" />
+<!-- Font Awesome -->
+<link href="css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+
+<style>
+/* Animation for diagrams */
+.diagram {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.diagram.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animation for progress bars */
+.progress-bar {
+  width: 0;
+  transition: width 1.5s ease-out;
+}
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+      const rect = element.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+      
+      // Check if element is at least 20% visible
+      const verticalVisible = rect.top < windowHeight * 0.8 && rect.bottom > 0;
+      const horizontalVisible = rect.left < windowWidth && rect.right > 0;
+      
+      return verticalVisible && horizontalVisible;
+    }
+
+    // Function to animate number counting
+    function animateValue(element, start, end, duration) {
+      if (element.dataset.animated === 'true') return; // Prevent re-animation
+      
+      element.dataset.animated = 'true';
+      let startTimestamp = null;
+      
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        
+        // Easing function for smooth animation
+        const easeOutQuad = progress * (2 - progress);
+        const currentValue = Math.floor(easeOutQuad * (end - start) + start);
+        
+        element.textContent = currentValue + '%';
+        
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          element.textContent = end + '%'; // Ensure we end at exact value
+        }
+      };
+      
+      window.requestAnimationFrame(step);
+    }
+
+    // Handle progress bars animation
+    const progressBars = document.querySelectorAll('.progress-bar');
+    const percentageValues = document.querySelectorAll('.percentage-value');
+    const animatedElements = new Set();
+    
+    function animateProgressBars() {
+      progressBars.forEach((bar, index) => {
+        const parent = bar.closest('.diagram');
+        if (parent && isInViewport(parent) && !animatedElements.has(bar)) {
+          animatedElements.add(bar);
+          
+          // Animate the progress bar width
+          const width = bar.getAttribute('aria-valuenow') + '%';
+          setTimeout(() => {
+            bar.style.width = width;
+          }, index * 100); // Stagger animation for each bar
+          
+          // Animate the percentage counter
+          if (percentageValues[index]) {
+            const targetValue = parseInt(percentageValues[index].dataset.target);
+            setTimeout(() => {
+              animateValue(percentageValues[index], 0, targetValue, 1500);
+            }, index * 100);
+          }
+        }
+      });
+    }
+
+    // Handle diagram animations
+    const diagrams = document.querySelectorAll('.diagram');
+    
+    function animateDiagrams() {
+      diagrams.forEach(diagram => {
+        if (isInViewport(diagram) && !diagram.classList.contains('animated')) {
+          diagram.classList.add('animated');
+          // Trigger progress bar animation when diagram becomes visible
+          animateProgressBars();
+        }
+      });
+    }
+
+    // Initial check and scroll listener with throttling
+    let ticking = false;
+    function handleScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          animateDiagrams();
+          animateProgressBars();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    // Initial animations
+    animateDiagrams();
+    animateProgressBars();
+    
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  });
+</script>
+
+<body>
+<header class="header">
+  <div class="container">
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        <a href="#" class="navbar-brand scroll-top logo"><b></b></a> </div>
+      <!--/.navbar-header-->
+      <div id="main-nav" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav" id="mainNav">
+          <li class="active"><a href="#home" class="scroll-link">Página Inicial</a></li>
+          <li><a href="#aboutUs" class="scroll-link">Sobre mim</a></li>
+          <li><a href="#skills" class="scroll-link">Habilidades</a></li>
+          <li><a href="#experience" class="scroll-link">Experiência</a></li>
+          <li><a href="#portfolio" class="scroll-link">Cursos</a></li>
+          <li><a href="#contactUs" class="scroll-link">Contato</a></li>
+          <li><a href="https://github.com/mikaeldiehl" class="scroll-link">Projetos</a></li>
+        </ul>
+      </div>
+
+    </nav>
+    
+  </div>
+
+</header>
+
+<div id="#top"></div>
+<section id="home">
+  <div class="banner-container"> <img src="images/banner-bg.jpg" alt="banner" />
+    <div class="container banner-content">
+      <style>
+      @media (max-width: 480px) {
+        .mobile-caption {
+          font-size: 18px !important;
+          padding: 5px 15px !important;
+          letter-spacing: 1px !important;
+        }
+      }
+      </style>
+
+    <div class="heroText">
+      <h2><span></span><br>
+        Mikael Diehl</h2>
+      <span class="caption mobile-caption">Dev. Full-stack focado em IA/ML</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .slide-in {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 1s ease-out;
+  }
+
+  .slide-in.active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (max-width: 768px) {
+    .slide-in {
+      transform: translateX(-50%);
+    }
+  }
+</style>
+
+
+<section id="introText">
+  <div class="container">
+    <div class="slide-in">
+      <h1>Início de um novo tempo. Graduado do curso universitário de Análise e Desenvolvimento de Sistemas e cursando Pós-graduação em Inteligência Artificial e Machine Learning, estou à disposição para as oportunidades do mercado de trabalho.</h1>
+      <p><b>Tenho conhecimentos sólidos em Python, LangChain, OpenAI, Hugging Face, ChatGroq, Torch, NumPy, Anaconda, JavaScript, Node.js, Express.js, Postman, XAMPP, Electron.js, MySQL, Firebird, CSS3, HTML5, JSON, Linux, Git. Meu objetivo é crescer junto de uma empresa.</b></p>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    const slideElements = document.querySelectorAll('.slide-in');
+    slideElements.forEach(element => observer.observe(element));
+  });
+</script>
+<!--About-->
+<section id="aboutUs">
+  <div class="container">
+    <div class="row"> 
+      <div class="col-lg-4 col-12 tileBox text-center">
+        <img src="images/photo-0.png" alt="me" class="img-fluid mx-auto d-block"/>
+      </div>
+      <div class="col-lg-8 col-12 tileBox text-center text-lg-start">
+        <div class="txtHead">
+          <h2>Meu nome é Mikael Diehl,</h2>
+          <h3>Sou Desenvolvedor Full-stack focado em IA/ML...</h3>
+        </div>
+        <p>
+          Desde cedo tive contato com o mundo da informática, por volta dos meus oito anos de idade, ainda na época da internet discada. Meu primeiro computador rodava Windows 98, com 128 MB de memória RAM, processador AMD Athlon 950 MHz e um HDD IDE de 20 GB a 5200 rpm.<br><br>
+
+          Na infância, comecei a aprender sobre cabeamento e manutenção de computadores. Pouco antes da adolescência, já realizava formatações, montagem e configuração de máquinas — algo que faço até hoje, seja para economizar ou para obter uma renda extra.<br><br>
+
+          Há três anos, decidi mergulhar de vez na programação, buscando unir meus conhecimentos de hardware com o desenvolvimento de software. Sou formado em <strong>Tecnologia em Análise e Desenvolvimento de Sistemas</strong> e complemento minha formação com cursos na Udemy, Curso em Vídeo, Alura, Asimov e Dio, aprofundando meus estudos e consolidando minha carreira.<br><br>
+
+          Busco uma oportunidade de contratação em uma empresa para crescer profissionalmente e contribuir com soluções inovadoras nesse mercado em constante evolução.<br><br>
+
+          Trabalhei por quase três anos no <strong>Grupo Herval</strong>, em Dois Irmãos, atuando por um período na área de suporte de TI. Mais recentemente, trabalhei como <strong>Desenvolvedor Full-Stack</strong> na <strong>Servisoft Informática</strong>, desenvolvendo sistemas de gestão.<br><br>
+
+          Durante a faculdade, comecei a estudar Python e, atualmente, estou me especializando em criar soluções de <strong>Inteligência Artificial</strong> por meio dessa linguagem de programação.
+        </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Quote-->
+<section id="quote" class="bg-parlex">
+  <div class="parlex-back">
+    <div class="container">
+     <div class="row">
+	<div class="col-md-12">      <h2>“Sorte é o que acontece quando a preparação </br>encontra a oportunidade.” <span>Sêneca</span></h2></div>
+      </div>
+    </div>
+    <!--/.container--> 
+  </div>
+</section>
+
+<!--Skills-->
+<section id="skills" class="secPad white">
+  <div class="container">
+    <div class="heading "> 
+      <!-- Heading -->
+    </div>
+    <style>
+    @media (max-width: 767px) {
+      .skillContainer .skillBox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      
+      .skillContainer .chart-text {
+        margin-top: 15px;
+        width: 100%;
+      }
+    }
+    </style>
+
+    <style>
+      .diagram {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .diagram.animated {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+
+      .diagram[data-animated="false"] {
+        --percent: 0%;
+      }
+    </style>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function isInViewport(element) {
+      const rect = element.getBoundingClientRect();
+      return (
+        rect.top >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+      );
+    }
+
+    function animateDiagram(diagram) {
+      if (diagram.getAttribute('data-animated') === 'true') return;
+      
+      const duration = 600; // 0.6 seconds
+      const interval = 10;
+      const steps = duration / interval;
+      const increment = targetValue / steps;
+
+      const animation = setInterval(() => {
+        if (currentValue >= targetValue) {
+          clearInterval(animation);
+          currentValue = targetValue;
+          progressBar.style.width = currentValue + '%';
+          percentageSpan.textContent = currentValue + '%';
+          return;
+        }
+        currentValue += increment;
+        progressBar.style.width = currentValue + '%';
+        percentageSpan.textContent = Math.round(currentValue) + '%';
+      }, interval);
+    }
+
+    function checkDiagrams() {
+      const diagrams = document.querySelectorAll('.diagram');
+      diagrams.forEach(diagram => {
+        if (isInViewport(diagram)) {
+          diagram.classList.add('animated');
+          animateDiagram(diagram);
+        }
+      });
+    }
+
+
+    checkDiagrams();
+    window.addEventListener('scroll', checkDiagrams);
+  });
+</script>
+
+    <div class="row skillContainer">
+      <div class="col-sm-6 col-lg-4 skillBox">
+        <div id="diagram-id-1" class="diagram" data-percent="90" data-animated="false">
+          <div class="chart-text">
+            <h4>Front-end Developer</h4>
+            <p>Experiência de 3 anos</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-sm-6 col-lg-4 skillBox">
+        <div id="diagram-id-2" class="diagram" data-percent="85" data-animated="false">
+          <div class="chart-text">
+            <h4>Full-stack Developer</h4>
+            <p>Experiência de 1 anos</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-sm-6 col-lg-4 skillBox">
+        <div id="diagram-id-3" class="diagram" data-percent="95" data-animated="false">
+          <div class="chart-text">
+            <h4>IA/ML Developer</h4>
+            <p>Experiência de 1 ano</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+      .progress {
+        position: relative;
+      }
+
+      .progress-bar {
+        width: 0;
+        transition: width 1.5s ease-out;
+      }
+
+      .progress .percentage {
+        position: absolute;
+        right: 10px;
+        color: white;
+        font-weight: bold;
+      }
+    </style>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        function isInViewport(element) {
+          const rect = element.getBoundingClientRect();
+          return (
+            rect.top >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+          );
+        }
+
+        function animateProgressBar(progressBar) {
+          if (!progressBar.classList.contains('animated')) {
+            const targetValue = parseInt(progressBar.getAttribute('aria-valuenow'));
+            const percentageSpan = progressBar.querySelector('.percentage');
+            let currentValue = 0;
+
+            progressBar.classList.add('animated');
+            
+            const interval = setInterval(() => {
+              if (currentValue >= targetValue) {
+                clearInterval(interval);
+                return;
+              }
+              
+              currentValue += 1;
+              progressBar.style.width = currentValue + '%';
+              percentageSpan.textContent = currentValue + '%';
+            }, 15);
+          }
+        }
+
+        function checkProgressBars() {
+          const progressBars = document.querySelectorAll('.progress-bar');
+          progressBars.forEach(bar => {
+            if (isInViewport(bar)) {
+              animateProgressBar(bar);
+            }
+          });
+        }
+
+
+        checkProgressBars();
+        window.addEventListener('scroll', checkProgressBars);
+      });
+    </script>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <h2>Habilidades de Programação</h2>
+        <p class="mrgBtm20"> Desenvolvedor há 3 anos, sempre botando a mão no código, praticando para solidificar o conhecimento. Depois de ter aprendido a primeira Linguagem de Programação, naturalmente entendi outras com muito mais facilidade. Eu me adapto sempre ao que o mercado possa vir a exigir. Sou proativo e sei trabalhar em equipe.<br>
+        <b>Possuo inglês avançado e espanhol básico a intermediário.</b></p>
+      </div>
+      <div class="col-sm-6"> <br/>
+        <br/>
+        <br/>
+        <div class="row">
+          <div class="col-md-2 skilltitle"><b>Python</b></div>
+          <div class="col-md-10">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 skilltitle"><b>UI/UX</b></div>
+          <div class="col-md-10">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 skilltitle"><b>JavaScript</b></div>
+          <div class="col-md-10">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 skilltitle"><b>Node.js</b></div>
+          <div class="col-md-10">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 skilltitle"><b>Express.js</b></div>
+          <div class="col-md-10">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 skilltitle"><b>MySQL</b></div>
+          <div class="col-md-10">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 skilltitle"><b>HTML5</b></div>
+          <div class="col-md-10">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 skilltitle"><b>CSS3</b></div>
+          <div class="col-md-10">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--Experience-->
+<section id="experience" class="secPad">
+<div class="container">
+<div class="heading"> 
+  <!-- Heading -->
+  <h2>Experiência</h2>
+  <br/>
+  <h4>Três anos intensos de experiência em Programação!</h4>
+  <p> Por dois anos e meio integrei o quadro funcional de um grande grupo empresarial, fabricante de móveis no Vale do Sinos, no Rio Grande do Sul. Atuando no setor administrativo, aprimorei minhas habilidades de trabalho em equipe por soluções inovadoras na dinâmica laboral. Nesse tempo, ampliei meus conhecimentos e minha interação com os colegas e chefes.<br>
+    Esse ano, desenvolvi e gerenciei sistemas de gestão com controle de acesso por níveis de privilégio, permitindo que usuários visualizem informações e administradores realizem operações completas como criação, edição e exclusão de dados diretamente pela interface. Os sistemas foram transformados em aplicativos com dashboards interativos e gráficos atualizados em tempo real, utilizando tecnologias como HTML5, CSS3, JavaScript, Bootstrap, Express.js, Node.js, Electron.js e banco de dados Firebird.<br>
+    Atualmente, crio páginas Landing-Page e automações em Python para demandas online. Espero voltar ao ambiente corporativo brevemente para novos e instigantes processos. Acredito que para realizar esse sonho eu já tenha dado o start da coragem, da motivação e ultrapassado desafios que podem mudar não só a minha vida como de outras pessoas.</p>
+</div>
+    <style>
+    @media (max-width: 767px) {
+      .experience-details .col-md-5 {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      .experience-details .icon-block {
+        margin-right: 15px;
+      }
+      .experience-details .pull-left {
+        margin-left: 0;
+      }
+      .experience-details .col-md-7 {
+        padding-left: 45px;
+        clear: both;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+      .experience-details .col-md-7 {
+        margin-top: 8px; /* espaço extra no tablet */
+      }
+    }
+
+  </style>
+
+  <div class="row experience-details">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="icon-block"><i class="fa fa-cogs"></i></div>
+          <div class="pull-left">
+            <h5>Téc. em Informática </h5>
+            <h4>Hardware</h4>
+            <span>2010 - ATUAL</span>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <i>Montagem e configuração de computadores e notebooks</i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row experience-details">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="icon-block"><i class="fa fa-desktop"></i></div>
+          <div class="pull-left">
+            <h5>Software Developer</h5>
+            <h4>Programação</h4>
+            <span>2022 - ATUAL</span>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <i>Desenvolvimento de sites e por certo período como Full-Stack na Servisoft Info.</i>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (max-width: 480px) {
+    .diploma-heading {
+      font-size: 25px !important;
+      line-height: 1.3;
+      margin-bottom: 15px;
+    }
+  }
+</style>
+
+<section id="portfolio" class="page-section section appear clearfix secPad">
+  <div class="container">    
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h2 class="diploma-heading" style="color: #0066cc;">Cursando Pós-Graduação em Inteligência Artificial e Machine Learning</h2>
+        <img src="images/UniCesumar.png" alt="Meu Diploma" class="img-responsive" style="margin: 0 auto; max-width: 60%; min-width: 300px; margin-bottom: 30px;">
+        <h2 class="diploma-heading" style="color: #0066cc;">Conceito 5: Nota máxima do MEC</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center" style="margin-top: 60px;">
+        <h2 class="diploma-heading">Diploma de ensino superior em Análise e Desenvolvimento de Sistemas</h2>
+        <img src="images/Diploma.png" alt="Meu Diploma" class="img-responsive" style="margin: 0 auto; max-width: 100%; margin-bottom: 30px;">
+      </div>
+    </div>
+    <div class="heading">
+      <!-- Heading -->
+      <h2>Cursos</h2>
+      <p>Deixarei aqui os meus certificados de conclusões de cursos.</p>
+    </div>
+    <div class="row">
+      <nav id="filter" class="col-md-12">
+        <ul>
+          <li><a href="#" class="current btn-theme btn-small" data-filter="*">Todos</a></li>
+          <li><a href="#" class="btn-theme btn-small" data-filter=".webdesign">Cursos profissionalizantes</a></li>
+          <li><a href="#" class="btn-theme btn-small" data-filter=".photography">Programação</a></li>
+          <li><a href="#" class="btn-theme btn-small" data-filter=".print">Técnicos em informática</a></li>
+        </ul>
+      </nav>
+      <div class="col-md-12">
+        <div class="row">
+          <div class="portfolio-items isotopeWrapper clearfix" id="3">
+            <article class="col-sm-4 isotopeItem webdesign">
+              <div class="portfolio-item">
+                <img src="images/portfolio/img1.jpg" alt="" />
+                <div class="portfolio-desc align-center">
+                  <div class="folio-info">
+                    <a href="images/portfolio/img1.jpg" class="fancybox">
+                      <h5>Profissionalizante vendas</h5>
+                      <i class="fa fa-plus-square-o fa-2x"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="col-sm-4 isotopeItem webdesign">
+              <div class="portfolio-item">
+                <img src="images/portfolio/img6.jpg" alt="" />
+                <div class="portfolio-desc align-center">
+                  <div class="folio-info">
+                    <a href="images/portfolio/img6.jpg" class="fancybox">
+                      <h5>Profissionalizante administrativo</h5>
+                      <i class="fa fa-plus-square-o fa-2x"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="col-sm-4 isotopeItem photography">
+              <div class="portfolio-item">
+                <img src="images/portfolio/img2.jpg" alt="" />
+                <div class="portfolio-desc align-center">
+                  <div class="folio-info">
+                    <a href="images/portfolio/img2.jpg" class="fancybox">
+                      <h5>Python</h5>
+                      <i class="fa fa-plus-square-o fa-2x"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="col-sm-4 isotopeItem photography">
+              <div class="portfolio-item">
+                <img src="images/portfolio/img4.1.jpg" alt="" />
+                <div class="portfolio-desc align-center">
+                  <div class="folio-info">
+                    <a href="images/portfolio/img4.1.jpg" class="fancybox">
+                      <h5>Python</h5>
+                      <i class="fa fa-plus-square-o fa-2x"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="col-sm-4 isotopeItem photography">
+              <div class="portfolio-item">
+                <img src="images/portfolio/img4.2.jpg" alt="" />
+                <div class="portfolio-desc align-center">
+                  <div class="folio-info">
+                    <a href="images/portfolio/img4.2.jpg" class="fancybox">
+                      <h5>Python</h5>
+                      <i class="fa fa-plus-square-o fa-2x"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="col-sm-4 isotopeItem photography">
+              <div class="portfolio-item">
+                <img src="images/portfolio/img4.3.jpg" alt="" />
+                <div class="portfolio-desc align-center">
+                  <div class="folio-info">
+                    <a href="images/portfolio/img4.3.jpg" class="fancybox">
+                      <h5>Python</h5>
+                      <i class="fa fa-plus-square-o fa-2x"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="col-sm-4 isotopeItem photography">
+              <div class="portfolio-item">
+                <img src="images/portfolio/img4.4.jpg" alt="" />
+                <div class="portfolio-desc align-center">
+                  <div class="folio-info">
+                    <a href="images/portfolio/img4.4.jpg" class="fancybox">
+                      <h5>English</h5>
+                      <i class="fa fa-plus-square-o fa-2x"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="col-sm-4 isotopeItem photography">
+              <div class="portfolio-item">
+                <img src="images/portfolio/img4.5.jpg" alt="" />
+                <div class="portfolio-desc align-center">
+                  <div class="folio-info">
+                    <a href="images/portfolio/img4.5.jpg" class="fancybox">
+                      <h5>Python</h5>
+                      <i class="fa fa-plus-square-o fa-2x"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="col-sm-4 isotopeItem photography">
+              <div class="portfolio-item">
+                <img src="images/portfolio/img4.6.jpg" alt="" />
+                <div class="portfolio-desc align-center">
+                  <div class="folio-info">
+                    <a href="images/portfolio/img4.6.jpg" class="fancybox">
+                      <h5>Python</h5>
+                      <i class="fa fa-plus-square-o fa-2x"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="col-sm-4 isotopeItem photography">
+              <div class="portfolio-item">
+                <img src="images/portfolio/img3.jpg" alt="" />
+                <div class="portfolio-desc align-center">
+                  <div class="folio-info">
+                    <a href="images/portfolio/img3.jpg" class="fancybox">
+                      <h5>Banco de dados</h5>
+                      <i class="fa fa-plus-square-o fa-2x"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="col-sm-4 isotopeItem photography">
+              <div class="portfolio-item">
+                <img src="images/portfolio/img8.jpg" alt="" />
+                <div class="portfolio-desc align-center">
+                  <div class="folio-info">
+                    <a href="images/portfolio/img8.jpg" class="fancybox">
+                      <h5>Desenvolvimento Web</h5>
+                      <i class="fa fa-plus-square-o fa-2x"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="col-sm-4 isotopeItem photography">
+              <div class="portfolio-item">
+                <img src="images/portfolio/img5.jpg" alt="" />
+                <div class="portfolio-desc align-center">
+                  <div class="folio-info">
+                    <a href="images/portfolio/img5.jpg" class="fancybox">
+                      <h5>Java completo</h5>
+                      <i class="fa fa-plus-square-o fa-2x"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="col-sm-4 isotopeItem print">
+              <div class="portfolio-item">
+                <img src="images/portfolio/img9.jpg" alt="" />
+                <div class="portfolio-desc align-center">
+                  <div class="folio-info">
+                    <a href="images/portfolio/img9.jpg" class="fancybox">
+                      <h5>Manutenção de notebooks</h5>
+                      <i class="fa fa-plus-square-o fa-2x"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="col-sm-4 isotopeItem print">
+              <div class="portfolio-item">
+                <img src="images/portfolio/img7.jpg" alt="" />
+                <div class="portfolio-desc align-center">
+                  <div class="folio-info">
+                    <a href="images/portfolio/img7.jpg" class="fancybox">
+                      <h5>Montagem e configuração de computadores</h5>
+                      <i class="fa fa-plus-square-o fa-2x"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </article>
+          <article class="col-sm-4 isotopeItem print">
+            <div class="portfolio-item">
+              <img src="images/portfolio/img4.jpg" alt="" />
+              <div class="portfolio-desc align-center">
+                <div class="folio-info">
+                  <a href="images/portfolio/img4.jpg" class="fancybox">
+                    <h5>Arquitetura de redes</h5>
+                    <i class="fa fa-plus-square-o fa-2x"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+</section> 
+
+<style>
+  .contact-slide-in {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 1s ease-out;
+  }
+
+  .contact-slide-in.active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (max-width: 768px) {
+    .contact-slide-in {
+      transform: translateX(-50%);
+    }
+  }
+</style>
+
+
+<section id="contactUs" class="page-section secPad">
+  <div class="container">
+    <div class="row">
+      <div class="heading contact-slide-in">
+
+        <h2>Vamos manter contato!</h2>
+        <p>Agradeço por visitar a minha página de perfil. Sinta-se à vontade para entrar em contato por meio dos hyperlinks de rodapé da página ou do meu email de trabalho: <b>mikaeldiehl.ads@gmail.com </b></p>
+        
+
+        <div class="cv-buttons" style="margin: 30px 0; text-align: left;">
+          <a href="source/CurriculumMikael.pdf" class="btn btn-theme btn-lg" style="margin: 5px 10px 5px 0;" target="_blank">
+            <i class="fa fa-file-pdf-o"></i> Visualizar Currículo em Português
+          </a>
+          <a href="source/CurriculumMikael-US.pdf" class="btn btn-theme btn-lg" style="margin: 5px 10px 5px 0;" target="_blank">
+            <i class="fa fa-file-pdf-o"></i> View CV in English
+          </a>
+        </div>
+
+        <br>
+        <p><h3> Tenha uma ótima jornada!</h3></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    const contactSlideElements = document.querySelectorAll('.contact-slide-in');
+    contactSlideElements.forEach(element => observer.observe(element));
+  });
+</script>
+
+
+
+<footer class="copyright">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="social pull-left"> <a href="https://www.linkedin.com/in/mikael-moraes-diehl-380a4528a/"><i class="fa fa-linkedin"></i></a> <a href="https://www.instagram.com/mikael.diehl"><i class="fa fa-instagram"></i></a> <a href="https://www.facebook.com/mikael.moraesdiehl"><i class="fa fa-facebook"></i></a><a href="https://github.com/mikaeldiehl"><i class="fa fa-github"></i></a> </div>
+      </div>
+    </div>
+
+  </div>
+</footer>
+<a href="#top" class="topHome"><i class="fa fa-chevron-up fa-2x"></i></a> 
+
+<!--[if lte IE 8]><script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><![endif]--> 
+<script src="js/modernizr-latest.js"></script> 
+<script src="js/jquery-1.8.2.min.js" type="text/javascript"></script> 
+<script src="js/bootstrap.min.js" type="text/javascript"></script> 
+<script src="js/jquery.isotope.min.js" type="text/javascript"></script> 
+<script src="js/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script> 
+<script src="js/jquery.nav.js" type="text/javascript"></script> 
+<script src="js/jquery.cslider.js" type="text/javascript"></script> 
+<script src="js/jquery.diagram.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script> 
+<script src="js/custom.js" type="text/javascript"></script> 
+<script src="js/owl-carousel/owl.carousel.js"></script>
+
+</body>
+</html>
+
+
