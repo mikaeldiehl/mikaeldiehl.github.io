@@ -405,7 +405,28 @@ box-shadow: 0px 3px 4px 0px rgba(50, 50, 50, 0.38);
 .secPad {
 	padding: 60px 0;
 }
+
 /*Intro Content*/
+
+.cv-buttons .btn-theme {
+	background-color: #000000;
+    color: #ffffff;
+    border: 2px solid #000000;
+    transition: all 0.4s ease-in-out;
+    font-weight: bold;
+}
+
+.cv-buttons .btn-theme:hover {
+    background-color: #FFD700;
+    color: #000000;
+    border-color: #FFD700;
+    box-shadow: 0 0 10px #fff;
+    transform: scale(1.05);
+}
+
+.cv-buttons .btn-theme:active {
+    transform: scale(0.97);
+}
 #introText {
 	padding: 50px 0;
 	background: #FF7A00;
