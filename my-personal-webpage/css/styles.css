@@ -1129,5 +1129,117 @@ nav#filter li {
 .heroText h2 {
     animation: glow 2s infinite alternate;
 }
+
+/* ============================================
+   Botão de Tradução - Sistema Offline
+   ============================================ */
+
+/* Botão desktop integrado na navbar */
+#translateBtn {
+    background: linear-gradient(135deg, #FF7A00 0%, #FF9933 100%);
+    padding: 8px 15px !important;
+    border-radius: 25px !important;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    color: white !important;
+    font-weight: 600;
+}
+
+#translateBtn:hover {
+    background: linear-gradient(135deg, #FF9933 0%, #FFAA44 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 122, 0, 0.4);
+    color: white !important;
+}
+
+#translateBtn i {
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+/* Container do botão mobile - oculto por padrão */
+.mobile-translate-container {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 10px;
+    z-index: 1000;
+}
+
+.btn-translate-mobile {
+    background: linear-gradient(135deg, #FF7A00 0%, #FF9933 100%);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(255, 122, 0, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-translate-mobile:hover {
+    background: linear-gradient(135deg, #FF9933 0%, #FFAA44 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 122, 0, 0.5);
+}
+
+.btn-translate-mobile:active {
+    transform: translateY(-1px);
+}
+
+.btn-translate-mobile i {
+    font-size: 18px;
+}
+
+/* Responsivo - Mobile (telas até 768px) */
+@media (max-width: 768px) {
+    /* Ocultar botão de tradução do menu normal no mobile */
+    .translate-btn-item {
+        display: none !important;
+    }
+    
+    /* Mostrar botão flutuante no mobile */
+    .mobile-translate-container {
+        display: block;
+    }
+    
+    /* Ajustar tamanho do botão mobile em telas pequenas */
+    .btn-translate-mobile {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+    
+    .btn-translate-mobile i {
+        font-size: 16px;
+    }
+}
+
+/* Desktop - esconder botão flutuante */
+@media (min-width: 769px) {
+    .mobile-translate-container {
+        display: none !important;
+    }
+    
+    .translate-btn-item {
+        display: inline-block !important;
+    }
+    
+    /* Esconder texto em telas menores que 1024px */
+    @media (max-width: 1024px) {
+        .translate-text {
+            display: none;
+        }
+        
+        #translateBtn {
+            padding: 8px 12px !important;
+        }
+    }
+}
+
 /*For can run another commit*/
 
