@@ -1139,7 +1139,7 @@ nav#filter li {
     background: linear-gradient(135deg, #FF7A00 0%, #FF9933 100%);
     padding: 8px 15px !important;
     border-radius: 25px !important;
-    margin-left: 10px;
+    margin-left: 0px;
     transition: all 0.3s ease;
     color: white !important;
     font-weight: 600;
@@ -1230,7 +1230,7 @@ nav#filter li {
     }
     
     /* Esconder texto em telas menores que 1024px */
-    @media (max-width: 1024px) {
+    @media (max-width: 1200px) {
         .translate-text {
             display: none;
         }
