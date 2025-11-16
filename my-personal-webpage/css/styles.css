@@ -1158,7 +1158,7 @@ nav#filter li {
 .mobile-translate-container {
     display: none;
     position: fixed;
-    bottom: 20px;
+    bottom: 80px;
     left: 10px;
     z-index: 1000;
 }
