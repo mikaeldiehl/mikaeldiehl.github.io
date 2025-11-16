@@ -262,7 +262,7 @@ function updateButtonText() {
     const btn = document.getElementById('translateBtn');
     const btnMobile = document.getElementById('translateBtnMobile');
     
-    const newText = currentLanguage === 'pt' ? 'Translate to English' : 'Traduzir para Português';
+    const newText = currentLanguage === 'pt' ? 'English' : 'Português';
     
     if (btn) {
         btn.innerHTML = `<i class="fa fa-globe"></i> <span class="translate-text">${newText}</span>`;
