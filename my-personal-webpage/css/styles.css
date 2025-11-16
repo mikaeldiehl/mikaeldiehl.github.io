@@ -1146,9 +1146,6 @@ nav#filter li {
 }
 
 #translateBtn:hover {
-    background: linear-gradient(135deg, #FF9933 0%, #FFAA44 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 122, 0, 0.4);
     color: white !important;
 }
 
