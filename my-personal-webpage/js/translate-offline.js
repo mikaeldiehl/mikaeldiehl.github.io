@@ -179,6 +179,19 @@ function translateToEnglish() {
             return;
         }
         
+        // Tratamento especial para botões com ícones (preservar HTML)
+        if (element.classList.contains('btn') && element.querySelector('i')) {
+            const icon = element.querySelector('i');
+            const iconHTML = icon.outerHTML;
+            const textOnly = element.textContent.trim();
+            const translatedText = translateText(textOnly);
+            
+            if (translatedText !== textOnly) {
+                element.innerHTML = iconHTML + ' ' + translatedText;
+            }
+            return;
+        }
+        
         // Primeiro tentar traduzir o texto completo (normalizado)
         const fullText = element.textContent.trim();
         const fullTranslation = translateText(fullText);
