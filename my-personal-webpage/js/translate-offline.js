@@ -86,6 +86,13 @@ const translations = {
     'Profissionalizante vendas': 'Professional sales',
     'Profissionalizante administrativo': 'Professional administrative',
     'Python': 'Python',
+    // Portfolio h5 labels
+    'Banco de dados': 'Database',
+    'Desenvolvimento Web': 'Web Development',
+    'Java completo': 'Complete Java',
+    'Manutenção de notebooks': 'Notebook Maintenance',
+    'Montagem e configuração de computadores': 'Computer Assembly and Configuration',
+    'Arquitetura de redes': 'Network Architecture',
     
     // Contact Section
     'Vamos manter contato!': "Let's keep in touch!",

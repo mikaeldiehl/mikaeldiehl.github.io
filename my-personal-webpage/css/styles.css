@@ -931,10 +931,10 @@ background: url(../images/bg2.png) top repeat;
 	top: 0px;
 }
 .portfolio-item .portfolio-desc .folio-info {
-	padding: 0px;
+	padding: 10px;
 }
 .portfolio-item .portfolio-desc .folio-info h5 {
-	font-size: 1em;
+	font-size: 1.1em;
 }
 .navbar-inverse .navbar-nav > li > a {
 	font-size: 1em;
@@ -1022,7 +1022,7 @@ margin-top: 30%;
 	margin: 0 0 20px;
 }
 .portfolio-item .portfolio-desc .folio-info h5 {
-	font-size: 11px;
+	font-size: 1em;
 }
 .skilltitle {
 	text-align: left;
@@ -1075,8 +1075,8 @@ display: inline-block;
 .portfolio-item .portfolio-desc .folio-info h5 {
 	text-transform: uppercase;
 	text-align: center;
-	font-weight: normal;
-	font-size: 10px;
+	font-weight: bold;
+	font-size: 0.95em;
 	margin: 10px 0 0 0;
 }
 nav#filter li {

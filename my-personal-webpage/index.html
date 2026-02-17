@@ -386,117 +386,214 @@
       <!-- Heading -->
     </div>
     <style>
-    @media (max-width: 767px) {
-      .skillContainer .skillBox {
+      .skill-cards-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 50px;
+        padding: 10px 0;
+      }
+
+      .skill-card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+        padding: 38px 30px 30px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        text-align: center;
-        margin-bottom: 30px;
-      }
-      
-      .skillContainer .chart-text {
-        margin-top: 15px;
-        width: 100%;
-      }
-    }
-    </style>
-
-    <style>
-      .diagram {
+        flex: 1 1 240px;
+        max-width: 300px;
+        min-width: 220px;
         opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        transform: translateY(30px);
+        transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s;
       }
 
-      .diagram.animated {
+      .skill-card.sc-visible {
         opacity: 1;
         transform: translateY(0);
       }
 
+      .skill-card:hover {
+        box-shadow: 0 16px 48px rgba(0,0,0,0.16);
+        transform: translateY(-4px);
+      }
 
-      .diagram[data-animated="false"] {
-        --percent: 0%;
+      .skill-card:nth-child(1) { transition-delay: 0s; }
+      .skill-card:nth-child(2) { transition-delay: 0.15s; }
+      .skill-card:nth-child(3) { transition-delay: 0.30s; }
+
+      .sc-ring-wrap {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        margin-bottom: 22px;
+      }
+
+      .sc-ring-wrap svg {
+        transform: rotate(-90deg);
+        width: 200px;
+        height: 200px;
+      }
+
+      .sc-track {
+        fill: none;
+        stroke: #f0f0f0;
+        stroke-width: 10;
+      }
+
+      .sc-fill {
+        fill: none;
+        stroke-width: 10;
+        stroke-linecap: round;
+        stroke-dasharray: 408;
+        stroke-dashoffset: 408;
+        transition: stroke-dashoffset 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .sc-percent-label {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 38px;
+        font-weight: 700;
+        color: #222;
+        letter-spacing: -1px;
+      }
+
+      .skill-card h4 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0 0 8px;
+        text-align: center;
+        letter-spacing: 0.3px;
+      }
+
+      .skill-card .sc-sub {
+        font-size: 13px;
+        color: #888;
+        text-align: center;
+        margin: 0;
+      }
+
+      @media (max-width: 600px) {
+        .skill-cards-row {
+          gap: 18px;
+        }
+        .skill-card {
+          max-width: 100%;
+          flex: 1 1 100%;
+        }
       }
     </style>
 
+    <div class="skill-cards-row skillContainer">
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    function isInViewport(element) {
-      const rect = element.getBoundingClientRect();
-      return (
-        rect.top >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
-      );
-    }
-
-    function animateDiagram(diagram) {
-      if (diagram.getAttribute('data-animated') === 'true') return;
-      
-      const duration = 600; // 0.6 seconds
-      const interval = 10;
-      const steps = duration / interval;
-      const increment = targetValue / steps;
-
-      const animation = setInterval(() => {
-        if (currentValue >= targetValue) {
-          clearInterval(animation);
-          currentValue = targetValue;
-          progressBar.style.width = currentValue + '%';
-          percentageSpan.textContent = currentValue + '%';
-          return;
-        }
-        currentValue += increment;
-        progressBar.style.width = currentValue + '%';
-        percentageSpan.textContent = Math.round(currentValue) + '%';
-      }, interval);
-    }
-
-    function checkDiagrams() {
-      const diagrams = document.querySelectorAll('.diagram');
-      diagrams.forEach(diagram => {
-        if (isInViewport(diagram)) {
-          diagram.classList.add('animated');
-          animateDiagram(diagram);
-        }
-      });
-    }
-
-
-    checkDiagrams();
-    window.addEventListener('scroll', checkDiagrams);
-  });
-</script>
-
-    <div class="row skillContainer">
-      <div class="col-sm-6 col-lg-4 skillBox">
-        <div id="diagram-id-1" class="diagram" data-percent="85" data-animated="false">
-          <div class="chart-text">
-            <h4>Front-end Developer</h4>
-            <p>Experiência de 3 anos</p>
-          </div>
+      <div class="skill-card" data-percent="85">
+        <div class="sc-ring-wrap">
+          <svg viewBox="0 0 150 150">
+            <circle class="sc-track" cx="75" cy="75" r="65"/>
+            <circle class="sc-fill" cx="75" cy="75" r="65" stroke="url(#grad1)"/>
+            <defs>
+              <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#f7971e"/>
+                <stop offset="100%" style="stop-color:#ffd200"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="sc-percent-label">0%</span>
         </div>
+        <h4>Front-end Developer</h4>
+        <p class="sc-sub">Experiência de 3 anos</p>
       </div>
-      
-      <div class="col-sm-6 col-lg-4 skillBox">
-        <div id="diagram-id-2" class="diagram" data-percent="95" data-animated="false">
-          <div class="chart-text">
-            <h4>Full-stack Developer</h4>
-            <p>Experiência de 3 anos</p>
-          </div>
+
+      <div class="skill-card" data-percent="95">
+        <div class="sc-ring-wrap">
+          <svg viewBox="0 0 150 150">
+            <circle class="sc-track" cx="75" cy="75" r="65"/>
+            <circle class="sc-fill" cx="75" cy="75" r="65" stroke="url(#grad2)"/>
+            <defs>
+              <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#11998e"/>
+                <stop offset="100%" style="stop-color:#38ef7d"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="sc-percent-label">0%</span>
         </div>
+        <h4>Full-stack Developer</h4>
+        <p class="sc-sub">Experiência de 3 anos</p>
       </div>
-      
-      <div class="col-sm-6 col-lg-4 skillBox">
-        <div id="diagram-id-3" class="diagram" data-percent="90" data-animated="false">
-          <div class="chart-text">
-            <h4>IA/ML Developer</h4>
-            <p>Experiência de 1 ano</p>
-          </div>
+
+      <div class="skill-card" data-percent="90">
+        <div class="sc-ring-wrap">
+          <svg viewBox="0 0 150 150">
+            <circle class="sc-track" cx="75" cy="75" r="65"/>
+            <circle class="sc-fill" cx="75" cy="75" r="65" stroke="url(#grad3)"/>
+            <defs>
+              <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#4776e6"/>
+                <stop offset="100%" style="stop-color:#8e54e9"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="sc-percent-label">0%</span>
         </div>
+        <h4>IA/ML Developer</h4>
+        <p class="sc-sub">Experiência de 1 ano</p>
       </div>
+
     </div>
+
+    <script>
+    (function() {
+      var circumference = 2 * Math.PI * 65; // ~408.41
+
+      function animateCard(card) {
+        var percent = parseInt(card.getAttribute('data-percent'), 10);
+        var fill = card.querySelector('.sc-fill');
+        var label = card.querySelector('.sc-percent-label');
+        var offset = circumference * (1 - percent / 100);
+        fill.style.strokeDasharray = circumference;
+        fill.style.strokeDashoffset = circumference;
+        // Trigger reflow
+        fill.getBoundingClientRect();
+        fill.style.strokeDashoffset = offset;
+
+        var start = null;
+        var duration = 1400;
+        function countUp(ts) {
+          if (!start) start = ts;
+          var progress = Math.min((ts - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          label.textContent = Math.round(eased * percent) + '%';
+          if (progress < 1) requestAnimationFrame(countUp);
+        }
+        requestAnimationFrame(countUp);
+      }
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var card = entry.target;
+            card.classList.add('sc-visible');
+            animateCard(card);
+            observer.unobserve(card);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.skill-card').forEach(function(card) {
+          observer.observe(card);
+        });
+      });
+    })();
+    </script>
     <style>
       .progress {
         position: relative;
