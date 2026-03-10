@@ -18,6 +18,7 @@ const translations = {
     
     // Hero Section
     'Desenvolvedor Full-stack, com experiência no mercado de programação, pós-graduação e inglês avançado.': 'Full-stack Developer, with experience in the programming market, postgraduate degree and advanced English.',
+    'Tenho conhecimentos sólidos em n8n, JavaScript, React.js, BootStrap, Node.js, Express.js, Linux, MySQL, SQLite, Firebird, PostgreSQL/Neon, AWS, Git, GitHub Pages, Render, Domínio e email como (FreeDNS + Resend), ChatBots de IA com Python e LangChain.': 'I have solid knowledge in n8n, JavaScript, React.js, Bootstrap, Node.js, Express.js, Linux, MySQL, SQLite, Firebird, PostgreSQL/Neon, AWS, Git, GitHub Pages, Render, Domain and email like (FreeDNS + Resend), AI ChatBots with Python and LangChain.',
     'Tenho conhecimentos sólidos em HTML5, CSS3, JavaScript, BootStrap, Node.js, Express.js, Linux, MySQL, SQLite, Firebird, PostgreSQL/Neon, AWS, Git, GitHub Pages, Render, Domínio e email como (FreeDNS + Resend), ChatBots de IA com Python e LangChain.': 'I have solid knowledge in HTML5, CSS3, JavaScript, Bootstrap, Node.js, Express.js, Linux, MySQL, SQLite, Firebird, PostgreSQL/Neon, AWS, Git, GitHub Pages, Render, Domain and email like (FreeDNS + Resend), AI ChatBots with Python and LangChain.',
     'Visualizar Currículo em Português': 'View Resume in Portuguese',
     'Dev. Full-stack focado em IA/ML': 'Full-stack Dev. focused on AI/ML',
@@ -61,6 +62,7 @@ const translations = {
     // Experience Section
     'Experiência': 'Experience',
     'Três anos intensos de experiência em Programação!': 'Three intense years of Programming experience!',
+    'Desenvolvimento Full-Stack de aplicações completas, atuando no Front-end com JavaScript, React.js e Bootstrap, e no Back-end com Node.js e Express.js. Experiência com bancos de dados MySQL, SQLite, Firebird e PostgreSQL (incluindo PostgreSQL + Neon na AWS), versionamento com Git, deploy em GitHub Pages e Render, gestão de variáveis de ambiente, configuração de domínios e serviços de e-mail com FreeDNS + Resend, além de domínio de ambientes Linux (Ubuntu, Kali e derivados).': 'Full-Stack development of complete applications, working on the Front-end with JavaScript, React.js and Bootstrap, and on the Back-end with Node.js and Express.js. Experience with MySQL, SQLite, Firebird and PostgreSQL databases (including PostgreSQL + Neon on AWS), versioning with Git, deploy on GitHub Pages and Render, environment variable management, domain configuration and email services with FreeDNS + Resend, in addition to mastery of Linux environments (Ubuntu, Kali and derivatives).',
     'Desenvolvimento Full-Stack de aplicações completas, atuando no Front-end com HTML5, CSS3, JavaScript e Bootstrap, e no Back-end com Node.js e Express.js. Experiência com bancos de dados MySQL, SQLite, Firebird e PostgreSQL (incluindo PostgreSQL + Neon na AWS), versionamento com Git, deploy em GitHub Pages e Render, gestão de variáveis de ambiente, configuração de domínios e serviços de e-mail com FreeDNS + Resend, além de domínio de ambientes Linux (Ubuntu, Kali e derivados).': 'Full-Stack development of complete applications, working on the Front-end with HTML5, CSS3, JavaScript and Bootstrap, and on the Back-end with Node.js and Express.js. Experience with MySQL, SQLite, Firebird and PostgreSQL databases (including PostgreSQL + Neon on AWS), versioning with Git, deploy on GitHub Pages and Render, environment variable management, domain configuration and email services with FreeDNS + Resend, in addition to mastery of Linux environments (Ubuntu, Kali and derivatives).',
     'Desenvolvi e gerenciei sistemas de gestão com controle de acesso por níveis de privilégio, permitindo que usuários visualizem dados enquanto administradores podem criar, editar e excluir informações diretamente pela interface. Transformei esses sistemas em aplicações com dashboards interativos e gráficos atualizados em tempo real, utilizando tecnologias como Electron.js para desktop e Firebird como base de dados. Também atuo no desenvolvimento de chatbots e aplicações com IA utilizando Python e LangChain, aliado ao domínio de conceitos fundamentais de programação, POO, APIs, bibliotecas e arquitetura Full-Stack.': 'I developed and managed management systems with access control by privilege levels, allowing users to view data while administrators can create, edit and delete information directly through the interface. I transformed these systems into applications with interactive dashboards and real-time updated charts, using technologies such as Electron.js for desktop and Firebird as a database. I also work on developing chatbots and AI applications using Python and LangChain, combined with mastery of fundamental programming concepts, OOP, APIs, libraries and Full-Stack architecture.',
     // Texto completo do parágrafo (normalizado com espaços únicos)
@@ -175,10 +177,27 @@ function translateToEnglish() {
     if (!originalContent) {
         saveOriginalContent();
     }
-    
+
+    // Tratamento especial: introText parágrafo de habilidades
+    const introSkillsText = document.getElementById('introSkillsText');
+    if (introSkillsText) {
+        introSkillsText.innerHTML = '<b>I have solid knowledge in n8n, JavaScript, React.js, Bootstrap, Node.js, Express.js, Linux, MySQL, SQLite, Firebird, PostgreSQL/Neon, AWS, Git, GitHub Pages, Render, Domain and email like (FreeDNS + Resend), AI ChatBots with Python and LangChain.</b>';
+    }
+
+    // Tratamento especial: experience parágrafo descritivo
+    const expDescText = document.getElementById('experienceDescText');
+    if (expDescText) {
+        expDescText.innerHTML = ' Full-Stack development of complete applications, working on the Front-end with JavaScript, React.js and Bootstrap, and on the Back-end with Node.js and Express.js. Experience with MySQL, SQLite, Firebird and PostgreSQL databases (including PostgreSQL + Neon on AWS), versioning with Git, deploy on GitHub Pages and Render, environment variable management, domain configuration and email services with FreeDNS + Resend, in addition to mastery of Linux environments (Ubuntu, Kali and derivatives).\n\nI developed and managed management systems with access control by privilege levels, allowing users to view data while administrators can create, edit and delete information directly through the interface. I transformed these systems into applications with interactive dashboards and real-time updated charts, using technologies such as Electron.js for desktop and Firebird as a database. I also work on developing chatbots and AI applications using Python and LangChain, combined with mastery of fundamental programming concepts, OOP, APIs, libraries and Full-Stack architecture.\nAI-focused programming using LangChain and n8n.';
+    }
+
     // Traduzir todos os elementos salvos
     originalContent.elements.forEach(item => {
         const element = item.element;
+
+        // Ignorar elementos já tratados pelo ID
+        if (element.id === 'introSkillsText' || element.id === 'experienceDescText') {
+            return;
+        }
         
         // Tratamento especial para o h2 da seção quote
         if (element.tagName === 'H2' && element.closest('#quote')) {
